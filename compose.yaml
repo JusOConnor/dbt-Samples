@@ -1,0 +1,28 @@
+# Docker Compose automatically reads your .env file, so the settings below stay in
+# sync with the ones your Python code and dbt use.
+
+services:
+  postgres:
+    # This is your warehouse. It is where dbt builds everything.
+    image: postgres:16
+    container_name: dbt_lab_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-dbt_lab}
+      POSTGRES_USER: ${POSTGRES_USER:-dbt_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dbt_password}
+    ports:
+      # Maps the container port to the same port on your machine, so your local
+      # dbt and Python connect to it at localhost.
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # Keeps your data on disk between restarts.
+      - dbt_lab_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # pgAdmin waits until this reports the database is ready to accept queries.
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dbt_user} -d ${POSTGRES_DB:-dbt_lab}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  dbt_lab_pgdata:

@@ -1,0 +1,40 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.DS_Store
+Thumbs.db
+*.pyc
+
+# Virtual environments
+.venv
+
+# Editor
+.vscode/
+.idea/
+
+# Dev Files
+Dev.ipynb
+Dev/
+Handoff Files/
+# guide/
+
+# ENV Files
+*.env
+
+# dbt build output and logs
+dbt_lab/target/
+dbt_lab/dbt_packages/
+dbt_lab/logs/
+logs/
+
+# Generated data and notebook checkpoints
+raw_data/*.csv
+.ipynb_checkpoints/
+
+# Building
+dbt_lab/
+data_setup/
