@@ -5,9 +5,9 @@ services:
   postgres:
     # This is your warehouse. It is where dbt builds everything.
     image: postgres:16
-    container_name: dbt_lab_postgres
+    container_name: dbt_sampels_postgres
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-dbt_lab}
+      POSTGRES_DB: ${POSTGRES_DB:-dbt_samples}
       POSTGRES_USER: ${POSTGRES_USER:-dbt_user}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dbt_password}
     ports:

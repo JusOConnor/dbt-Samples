@@ -20,6 +20,7 @@ Thumbs.db
 Dev.ipynb
 Dev/
 Handoff Files/
+Dev.*
 # guide/
 
 # ENV Files
@@ -34,7 +35,7 @@ logs/
 # Generated data and notebook checkpoints
 raw_data/*.csv
 .ipynb_checkpoints/
+raw_data/
 
 # Building
 dbt_lab/
-data_setup/
