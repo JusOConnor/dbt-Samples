@@ -37,5 +37,3 @@ raw_data/*.csv
 .ipynb_checkpoints/
 raw_data/
 
-# Building
-dbt_lab/
