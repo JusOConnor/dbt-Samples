@@ -1,9 +1,3 @@
-# dbt_lab
-
-A starter dbt project that builds a small set of models into a local Postgres
-warehouse. It ships with a tiny sample dataset, so you can run the whole flow
-end to end before you point it at real data.
-
 ## What is in here
 
 - `docker-compose.yml` and `.env` (your files) run Postgres in a container.
