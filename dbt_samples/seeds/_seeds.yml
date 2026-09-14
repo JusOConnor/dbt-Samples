@@ -1,0 +1,17 @@
+version: 2
+
+seeds:
+  - name: category_department_map
+    description: >
+      A small static lookup that maps each product category to a merchandising
+      department. Seeds are for exactly this: little reference tables that live in
+      your project as CSV and are loaded with 'dbt seed'.
+    columns:
+      - name: category
+        tests: [unique, not_null]
+  - name: state_region_map
+    description: >
+      Tier 1.1 Foundations refresh challenge
+    columns:
+      - name: state
+        tests: [unique, not_null]

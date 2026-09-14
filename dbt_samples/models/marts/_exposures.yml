@@ -1,0 +1,26 @@
+version: 2
+
+exposures:
+  - name: category_performance_dashboard
+    type: dashboard
+    maturity: high
+    url: 'https://your-bi-tool.example.com/dashboards/category-performance'
+    description: >
+      Executive view of category revenue and margin trends, refreshed daily.
+    depends_on:
+      - ref('mart_category_daily_sales')
+      - ref('mart_customer_summary')
+    owner:
+      name: 'JusOConnor'
+      email: 'analytics@dbtlab.local'
+  
+  - name: sales_ops_dashboard
+    type: dashboard
+    description: >
+      Sales operations view of channel and segment performance, refreshed daily.
+    depends_on:
+      - ref('mart_channel_performance')
+      - ref('mart_segment_region_summary')
+    owner:
+      name: 'JusOConnor'
+      email: 'analytics@dbtlab.local'

@@ -1,0 +1,42 @@
+# This file tells dbt what the project is called and how to build each layer.
+name: 'dbt_samples'
+version: '0.1.0'
+config-version: 2
+
+# dbt looks up this name in profiles.yml to find the database connection.
+profile: 'dbt_samples'
+
+# Where dbt should look for each kind of file.
+model-paths: ['models']
+seed-paths: ['seeds']
+snapshot-paths: ['snapshots']
+macro-paths: ['macros']
+test-paths: ['tests']
+analysis-paths: ['analyses']
+
+
+# Folders dbt can safely empty and rebuild whenever you run dbt clean.
+clean-targets:
+  - 'target'
+  - 'dbt_packages'
+
+# Project level variables. Models can read these with var('name').
+vars:
+  reporting_start_date: '2020-01-01'
+
+# How each layer is saved in the warehouse.
+# Staging is built as views, so it always reflects the latest source data
+# and takes almost no storage. Marts are saved as real tables, so the
+# finished numbers are fast to read.
+models:
+  dbt_samples:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+    intermediate:
+      +materialized: ephemeral
+
+# A message printed at the end of every run. A gentle first taste of hooks.
+on-run-end:
+  - "{{ log('dbt finished running against target: ' ~ target.name, info=true) }}"

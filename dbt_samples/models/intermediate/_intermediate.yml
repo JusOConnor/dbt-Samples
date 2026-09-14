@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: int_order_items_enriched
+    description: >
+      Line items joined to orders and products, with revenue, cost, and margin
+      calculated. Ephemeral, so it exists only as reusable SQL, not a table.

@@ -1,0 +1,23 @@
+# This file holds the connection to your Postgres warehouse.
+# Every value is read from your .env file, so no password is ever written
+# here and the file is safe to keep in version control.
+#
+# A note on the quotes: each value below is wrapped in double quotes because
+# it contains an env_var lookup, and the name inside that lookup uses single
+# quotes. That pairing is what dbt expects, so the outer double quotes stay.
+
+dbt_samples:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST') }}"
+      # The port comes in as text, so | int hands dbt a real number.
+      port: "{{ env_var('POSTGRES_PORT') | int }}"
+      user: "{{ env_var('POSTGRES_USER') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: "{{ env_var('POSTGRES_DB') }}"
+      # dbt creates this schema on the first run if it is not already there.
+      schema: analytics
+      # How many models dbt builds at the same time.
+      threads: 4

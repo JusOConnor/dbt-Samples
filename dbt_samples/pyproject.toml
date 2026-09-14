@@ -1,0 +1,28 @@
+# This file lists everything the project needs. uv reads it to build a
+# private environment for this folder, so nothing is installed system wide.
+
+[project]
+name = 'dbt_lab'
+version = '0.1.0'
+description = 'A starter dbt project that builds into a local Postgres warehouse.'
+requires-python = '>=3.10'
+
+# The tools dbt itself needs to run against Postgres.
+dependencies = [
+    'dbt-core~=1.11.0',
+    'dbt-postgres~=1.11.0',
+]
+
+# Extra tools used only when you explore results in a notebook.
+[dependency-groups]
+dev = [
+    'jupyterlab',
+    'pandas',
+    'sqlalchemy',
+    'python-dotenv',
+]
+
+# This folder is an environment to work in, not a library to publish,
+# so uv should not try to build it as a package.
+[tool.uv]
+package = false

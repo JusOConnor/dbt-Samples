@@ -1,0 +1,14 @@
+# Secrets: never commit your real credentials.
+.env
+
+# dbt build output and logs, safe to delete and rebuild.
+target/
+dbt_packages/
+logs/
+
+# The uv environment and Python caches.
+.venv/
+__pycache__/
+
+# Jupyter checkpoint files.
+.ipynb_checkpoints/

@@ -1,0 +1,26 @@
+
+version: 2
+
+sources:
+  - name: foodservice
+    description: 'Raw foodservice distribution data loaded outside of dbt.'
+    schema: raw
+    tables:
+      - name: raw_customers
+        description: 'One row per operator account, as delivered by the source.'
+        columns:
+          - name: customer_id
+            tests: [not_null]
+      - name: raw_products
+        description: 'The product catalog.'
+        columns:
+          - name: product_id
+            tests: [not_null]
+      - name: raw_orders
+        description: 'Order headers. order_date is text and sometimes stale.'
+        loaded_at_field: "cast(order_date as timestamp)"
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 90, period: day}
+      - name: raw_order_items
+        description: 'Order line items. This is the lowest grain in the data.'

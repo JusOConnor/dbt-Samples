@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: 'Cleaned, de duplicated operator accounts.'
+    columns:
+      - name: customer_id
+        description: 'Unique identifier for each operator.'
+        tests: [unique, not_null]
+      - name: segment
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Independent', 'Regional Chain', 'National Account']
+
+  - name: stg_products
+    description: 'Cleaned product catalog with a standardized category.'
+    columns:
+      - name: product_id
+        tests: [unique, not_null]
+      - name: category
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Eggs', 'Dairy', 'Bakery', 'Cheese']
+
+  - name: stg_orders
+    description: 'Cleaned order headers with real dates and lowercased status.'
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: status
+        tests:
+          - accepted_values: 
+              arguments:
+                values: ['placed', 'shipped', 'delivered', 'returned']
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
+
+  - name: stg_order_items
+    description: 'Cleaned order line items at their original grain.'
+    columns:
+      - name: order_item_id
+        tests: [unique, not_null]
